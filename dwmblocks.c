@@ -5,7 +5,7 @@
 #include<signal.h>
 #include<X11/Xlib.h>
 #define LENGTH(X)               (sizeof(X) / sizeof (X[0]))
-#define CMDLENGTH		50
+#define CMDLENGTH		100
 
 typedef struct {
 	char* icon;
@@ -49,9 +49,9 @@ void getcmd(const Block *block, char *output)
 	fgets(output+i, CMDLENGTH-i, cmdf);
 	i = strlen(output);
 	if (delim != '\0' && --i) {
-		output[i++] = ' ';
+		// output[i++] = ' ';
 		output[i++] = delim;
-		output[i++] = ' ';
+		// output[i++] = ' ';
   }
 	output[i++] = '\0';
 	pclose(cmdf);
