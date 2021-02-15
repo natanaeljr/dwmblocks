@@ -9,7 +9,7 @@ static const Block blocks[] = {
   xargs printf "[%d %d %d rpm]\n")",
   3, 0},
 {"GPU:", R"(nvidia-smi --query-gpu="utilization.gpu,temperature.gpu,memory.used,fan.speed" --format=csv,noheader | tr -d ',' | awk '{printf "[%02d%% %02d°C %d%s %02d%%]\n", $1, $3, $4, $5, $6}')", 2, 0},
-{"CPU:", R"((cpuawk; sensors-cached | awk '/CPU:/ {printf $2}' | tr -d '+°C') | xargs printf "[%s %02.0f°C]\n")", 2, 0},
+{"CPU:", R"((cpu-percent; sensors-cached | awk '/CPU:/ {printf $2}' | tr -d '+°C') | xargs printf "[%02d%% %02.0f°C]\n")", 2, 0},
 {"MEM:", R"(free -m | awk '/Mem:/ {used=$2-$7; unit="MiB"; if(used>=1000) {used/=1024; unit="GiB"}; printf("[%.1f%s]\n",used,unit)}')", 3, 0},
 {"", R"(date +'%a %b %d %Y %T %p')", 1, 0},
 };
