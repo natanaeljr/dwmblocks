@@ -8,7 +8,7 @@ static const Block blocks[] = {
 {"FAN:", R"(sensors-cached | awk '/SYS_FAN/ {print $2}' | xargs printf "[%d %drpm]\n")", 3, 0},
 {"TEMP:",R"(sensors-cached | awk '/_TEMP/ {print $2}' | tr -d '+°C' | xargs | awk '{printf "[%d %d %d %d°C]\n",$1,$2,$5,$6}')", 3, 0},
 {"MEM:", R"(free -m | awk '/Mem:/ {used=$2-$7; unit="MiB"; if(used>=1000) {used/=1024; unit="GiB"}; printf("[%.1f%s]\n",used,unit)}')", 3, 0},
-{"", R"(date +'%a %b %d %Y %T %p')", 1, 0},
+{"", R"(date +'(%a) %b %d %Y %T %p')", 1, 0},
 };
 
 //sets delimeter between status commands. NULL character ('\0') means no delimeter.
