@@ -2,7 +2,7 @@
 static const Block blocks[] = {
   /*Icon*/  /*Command*/  /*Update Interval*/  /*Update Signal*/
   {"", R"(cat ~/.notes-oneline)",	60, 0},
-  {"BTC:", R"(bitcoin_brl | LC_NUMERIC=pt_BR.UTF-8 xargs printf "R$%'.2f \n")", 30, 0},
+  {"BTC:", R"(curl -s https://www.mercadobitcoin.net/api/BTC/ticker/ | jq '.ticker.last' | LC_NUMERIC=pt_BR.UTF-8 xargs printf "[R$%'.2f]\n")", 30, 0},
   {"FAN:", R"(sensors-cached | awk '/FAN/ {print $2}' | xargs printf "[%d %d %d rpm]\n")", 3, 0},
   {"GPU:", R"(nvidia-smi --query-gpu="utilization.gpu,temperature.gpu,memory.used,fan.speed" --format=csv,noheader | tr -d ',' | awk '{printf "[%02d%% %02d°C %d%s %02d%%]\n", $1, $3, $4, $5, $6}')", 2, 0},
   {"CPU:", R"((cpuawk; sensors-cached | awk '/CPU:/ {printf $2}' | tr -d '+°C') | xargs printf "[%s %02.0f°C]\n")", 2, 0},
