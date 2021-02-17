@@ -8,10 +8,14 @@ static const Block blocks[] = {
 {"TEMP:",R"(sensors-cached | awk '/_TEMP/ {print $2}' | tr -d '+°C' | xargs | awk '{printf "[%d %d %d %d°C]\n",$1,$2,$5,$6}')", 3, 3},
 {"MEM:", R"(free -m | awk '/Mem:/ {used=$2-$7; perc=used*100/$2; unit="MiB"; if(used>=1000) {used/=1024; unit="GiB"}; printf("[%02.f%% %.1f%s]\n",perc,used,unit)}')", 3, 2},
 {"", R"(
+  function yad_calendar() {
+    yad --calendar --title="Calendar [dwmblocks]" --fixed --mouse --skip-taskbar --no-buttons --sticky --on-top "$@" > /dev/null 2>&1 &
+  }
   if [ -n "$BUTTON" ]; then
-    # Uncomment to allow only one instance of the calender
-    # xdotool search --name "Calendar \[dwmblocks\]" > /dev/null 2>&1 || \
-      ( yad --calendar --title="Calendar [dwmblocks]" --fixed --mouse --skip-taskbar --no-buttons --sticky --on-top > /dev/null 2>&1 & )
+    case $BUTTON in
+      1) xdotool search --name "Calendar \[dwmblocks\]" > /dev/null 2>&1 || yad_calendar --close-on-unfocus ;;
+      *) yad_calendar
+    esac
   fi
   date +'(%a) %b %d %Y %T %p'
 )", 1, 1},
