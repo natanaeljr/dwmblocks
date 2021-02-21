@@ -7,7 +7,7 @@ static const Block blocks[] = {
 {"CPU:", R"((cpu-percent; sensors-cached | awk '/CPU_FAN/{print $2} /CPU_TEMP/{print $2}' | tr -d '+°C') | xargs | awk '{printf "[%02d%% %02.0f°C %drmp]\n",$1,$3,$2}')", 2, 5},
 {"FAN:", R"(sensors-cached | awk '/SYS_FAN/ {print $2}' | xargs printf "[%d %drpm]\n")", 3, 4},
 {"TEMP:",R"(sensors-cached | awk '/_TEMP/ {print $2}' | tr -d '+°C' | xargs | awk '{printf "[%d %d %d %d°C]\n",$1,$2,$5,$6}')", 3, 3},
-{"MEM:", R"(free -m | awk '/Mem:/ {free_pc=$4*100/$2; used=$2-$7; used_pc=used*100/$2; unit="MiB"; if(used>=1000) {used/=1024; unit="GiB"}; printf("[%02.f%% %.1f%s %02.f%%]\n",used_pc,used,unit,free_pc)}')", 3, 2},
+{"MEM:", R"(free -m | awk '/Mem:/ {free_pc=$4*100/$2; used=$2-$7; used_pc=used*100/$2; unit="MiB"; if(used>=1000) {used/=1024; unit="GiB"}; printf("[%02.f%% " (unit=="GiB"?"%.1f":"%d") "%s %02.f%%]\n",used_pc,used,unit,free_pc)}')", 3, 2},
 {"", R"(
   function yad_calendar() {
     yad --calendar --title="Calendar [dwmblocks]" --fixed --mouse --skip-taskbar --no-buttons --sticky --on-top "$@" > /dev/null 2>&1 &
