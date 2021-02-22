@@ -4,7 +4,7 @@ static const Block blocks[] = {
 {"PLAY:",R"(SIGNAL=8 spotify-bar)", 60, 8},
 {"BTC:", R"(curl -s https://www.mercadobitcoin.net/api/BTC/ticker/ | jq '.ticker.last' | LC_NUMERIC=pt_BR.UTF-8 xargs printf "[R$%'.2f]\n")", 60, 7},
 {"GPU:", R"(nvidia-smi --query-gpu="utilization.gpu,temperature.gpu,memory.used,fan.speed" --format=csv,noheader | tr -d ',' | awk '{printf "[%02d%% %02d°C %d%s %02d%%]\n",$1,$3,$4,$5,$6}')", 2, 6},
-{"CPU:", R"((cpu-percent; sensors-cached | awk '/CPU_FAN/{print $2} /CPU_TEMP/{print $2}' | tr -d '+°C') | xargs | awk '{printf "[%02d%% %02.0f°C %drmp]\n",$1,$3,$2}')", 2, 5},
+{"CPU:", R"((cpu-percent; cpu-speed; sensors-cached | awk '/CPU_FAN/{print $2} /CPU_TEMP/{print $2}' | tr -d '+°C') | xargs | awk '{printf "[%02d%% %.1fGHz %02.0f°C %drmp]\n",$1,$2,$4,$3}')", 2, 5},
 {"FAN:", R"(sensors-cached | awk '/SYS_FAN/ {print $2}' | xargs printf "[%d %drpm]\n")", 3, 4},
 {"TEMP:",R"(sensors-cached | awk '/_TEMP/ {print $2}' | tr -d '+°C' | xargs | awk '{printf "[%d %d %d %d°C]\n",$1,$2,$5,$6}')", 3, 3},
 {"MEM:", R"(free -m | awk '/Mem:/ {free_pc=$4*100/$2; used=$2-$7; used_pc=used*100/$2; unit="MiB"; if(used>=1000) {used/=1024; unit="GiB"}; printf("[%02.f%% " (unit=="GiB"?"%.1f":"%d") "%s %02.f%%]\n",used_pc,used,unit,free_pc)}')", 3, 2},
