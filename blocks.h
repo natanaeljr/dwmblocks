@@ -10,7 +10,7 @@ static const Block blocks[] = {
 {"", R"(free -m | awk '/Mem:/ {free_pc=$4*100/$2; used=$2-$7; used_pc=used*100/$2; unit="MiB"; if(used>=1000) {used/=1024; unit="GiB"}; printf("[%02.f " (unit=="GiB"?"%.1f":"%d") "%s %02.f]\n",used_pc,used,unit,free_pc)}')", 3, 2},
 {"", R"(
   function yad_calendar() {
-    yad --calendar --title="Calendar [dwmblocks]" --fixed --mouse --skip-taskbar --no-buttons --sticky --on-top "$@" > /dev/null 2>&1 &
+    GTK_THEME="Adwaita:dark" yad --calendar --title="Calendar [dwmblocks]" --fixed --mouse --skip-taskbar --no-buttons --sticky --on-top "$@" > /dev/null 2>&1 &
   }
   if [ -n "$BUTTON" ]; then
     case $BUTTON in
