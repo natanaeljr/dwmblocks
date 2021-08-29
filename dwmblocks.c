@@ -67,9 +67,9 @@ void getcmd(const Block *block, char *output)
 	fgets(output+i, CMDLENGTH-i, cmdf);
 	i = strlen(output);
 	if (delim != '\0' && --i) {
-		// output[i++] = ' ';
+		output[i++] = ' ';
 		output[i++] = delim;
-		// output[i++] = ' ';
+		output[i++] = ' ';
   }
 	output[i++] = '\0';
 	pclose(cmdf);
