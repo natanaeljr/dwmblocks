@@ -2,7 +2,7 @@
 static const Block blocks[] = {
 /*Icon*/  /*Command*/  /*Update Interval*/  /*Update Signal*/
 {"",R"(SIGNAL=8 spotify-bar)", 60, 8},
-{"ﴑ", R"(curl -s https://www.mercadobitcoin.net/api/BTC/ticker/ | jq '.ticker.last' | LC_NUMERIC=pt_BR.UTF-8 xargs printf "R$%'.2f\n")", 60, 7},
+{"", R"(curl -s https://www.mercadobitcoin.net/api/BTC/ticker/ | jq '.ticker.last' | LC_NUMERIC=pt_BR.UTF-8 xargs printf "^c#abb2bf^ﴑR$%'.2f^d^\n")", 60, 7},
 //{"", R"(nvidia-smi --query-gpu="utilization.gpu,temperature.gpu,fan.speed" --format=csv,noheader | tr -d ',' | awk '{printf "^b#98c379^^c#1e222a^%02d%%^d^ ^c#98c379^%02d糖^d^\n",$1,$3}')", 3, 6},
 {"", R"((cpu-percent; cpu-speed; sensors-cached | awk '/CPU_FAN/{print $2} /CPU_TEMP/{print $2}' | tr -d '+°C') | xargs | awk '{printf "^c#e06c75^%02d%% ^b#e06c75^^c#1e222a^%.1fGHz^d^^c#e06c75^ %02d糖 %d ^d^\n",$1,$2,$4,$3}')", 2, 5},
 //{"", R"(sensors-cached | awk '/SYS_FAN/ {print $2}' | xargs printf "%d %dn")", 3, 4},
