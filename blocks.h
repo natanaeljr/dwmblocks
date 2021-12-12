@@ -4,7 +4,7 @@ static const Block blocks[] = {
 {"",R"(SIGNAL=8 spotify-bar)", 60, 8},
 {"", R"(curl -s https://www.mercadobitcoin.net/api/BTC/ticker/ | jq '.ticker.last' | LC_NUMERIC=pt_BR.UTF-8 xargs printf "^c#abb2bf^ﴑR$%'.2f^d^\n")", 60, 7},
 //{"", R"(nvidia-smi --query-gpu="utilization.gpu,temperature.gpu,fan.speed" --format=csv,noheader | tr -d ',' | awk '{printf "^b#98c379^^c#1e222a^%02d%%^d^ ^c#98c379^%02d糖^d^\n",$1,$3}')", 3, 6},
-{"", R"((cpu-percent; cpu-speed; sensors-cached | awk '/CPU_FAN/{print $2} /CPU_TEMP/{print $2}' | tr -d '+°C') | xargs | awk '{printf "^c#56b6c2^%02d%% ^b#56b6c2^^c#1e222a^%.1fGHz^d^^c#56b6c2^ %02d糖 %d ^d^\n",$1,$2,$4,$3}')", 2, 5},
+{"", R"((cpu-percent; cpu-speed; sensors-cached | awk '/CPU_FAN/{print $2} /CPU_TEMP/{print $2}' | tr -d '+°C') | xargs | awk '{printf "^c#d19a66^%02d%% ^b#d19a66^^c#1e222a^%.1fGHz^d^ %02d糖 %d ^d^\n",$1,$2,$4,$3}')", 2, 5},
 //{"", R"(sensors-cached | awk '/SYS_FAN/ {print $2}' | xargs printf "%d %dn")", 3, 4},
 //{"",R"(sensors-cached | awk '/_TEMP/ {print $2}' | tr -d '+°C' | xargs | awk '{printf "%d %d %d %d糖\n",$1,$2,$5,$6}')", 3, 3},
 {"", R"(free -m | awk '/Mem:/ {free_pc=$4*100/$2; used=$2-$7; used_pc=used*100/$2; unit="M"; if(used>=1000) {used/=1024; unit="G"}; printf("^b#61afef^^c#1e222a^%02.f%%^d^ ^c#61afef^" (unit=="G"?"%.1f":"%d") "%s %02.f%%^d^\n",used_pc,used,unit,free_pc)}')", 3, 2},
